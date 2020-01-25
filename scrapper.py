@@ -2,9 +2,15 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+import os
 
 
 url = "https://www.youtube.com/feed/trending"
+
+if os.path.exists("trending_videos_data.csv"):
+  os.remove("trending_videos_data.csv")
+else:
+  ...
 
 """ options = webdriver.ChromeOptions()
 options.add_argument("headless")
@@ -41,11 +47,14 @@ for content in soup.findAll("div", class_= "yt-lockup-content"):
         title = content.h3.a.text
         print(title)
 
+        video_href = content.h3.a.get("href")
+        print(video_href)
+
         description = content.find('div', class_="yt-lockup-description yt-ui-ellipsis yt-ui-ellipsis-2").text
         print(description)
 
-        with open("trending_videos_data.csv", "w") as f:
-            f.write(title + "," + description + "\n")
+        with open("trending_videos_data.csv", "a") as f:
+            f.write("{},https://www.youtube.com{},{}\n".format(title, str(video_href)))
 
     except Exception as e:
         description = None
