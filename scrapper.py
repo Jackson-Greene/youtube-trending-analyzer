@@ -6,12 +6,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 url = "https://www.youtube.com/feed/trending"
 
-options = webdriver.ChromeOptions()
+""" options = webdriver.ChromeOptions()
 options.add_argument("headless")
 driver = webdriver.Chrome("./chromedriver", chrome_options=options)
 driver.get("https://www.youtube.com/feed/trending")
 
-soup = BeautifulSoup(driver.page_source, features="lxml")
+soup = BeautifulSoup(driver.page_source, features="lxml") """
 
 
 #/html/body/ytd-app/div/ytd-page-manager/ytd-browse/ytd-two-column-browse-results-renderer/div[1]/ytd-section-list-renderer/div[2]/ytd-item-section-renderer[1]/div[3]/ytd-shelf-renderer/div[1]/div[2]/ytd-expanded-shelf-contents-renderer/div
@@ -22,22 +22,20 @@ soup = BeautifulSoup(driver.page_source, features="lxml")
 """ with open("test.html", "w") as f:
     f.write(driver.page_source) """
 
-
-
-
-
 #print(video_list.prettify())
+
+#driver.quit()
 
 
 
 response = requests.get(url)
-with open("test.html", "w") as f:
-    f.write(response.text)
 
-soup = BeautifulSoup(driver.page_source, features="lxml")
+soup = BeautifulSoup(response.text, features="lxml")
 
 
-#this works but I don't know how
+with open("neat_html.html", "w") as f:
+    f.write(soup.find("html").prettify())
+
 for content in soup.findAll("div", class_= "yt-lockup-content"):
     try:
         title = content.h3.a.text
@@ -46,8 +44,8 @@ for content in soup.findAll("div", class_= "yt-lockup-content"):
         description = content.find('div', class_="yt-lockup-description yt-ui-ellipsis yt-ui-ellipsis-2").text
         print(description)
 
+        with open("trending_videos_data.csv", "w") as f:
+            f.write(title + "," + description + "\n")
+
     except Exception as e:
         description = None
- ##############
-
-driver.quit()
