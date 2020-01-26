@@ -54,7 +54,7 @@ for content in soup.findAll("div", class_= "yt-lockup-content"):
         print(description)
 
         with open("trending_videos_data.csv", "a") as f:
-            f.write("{},https://www.youtube.com{},{}\n".format(title, str(video_href)))
+            f.write("{},{},{}\n".format(title, video_href, "3"))
 
     except Exception as e:
         description = None
