@@ -43,6 +43,6 @@ class Video:
     def __str__(self):
 	    return "Title: " + self._title + "\nDescription: " + self._desc + "\nHyperlink: " + self._hyperlink + "\nTags: " + self._tags
 
-vid = Video("Banana", "Hello", "Apple", "Tomato")
-print(vid)
+#vid = Video("Banana", "Hello", "Apple", "Tomato")
+#print(vid)
 
