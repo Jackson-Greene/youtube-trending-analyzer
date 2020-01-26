@@ -10,7 +10,7 @@ class Video:
 	    self._hyperlink = hyperlink
 	    self._tags = tags
 	
-    def creatVideo(title, desc, hyperlink, tags):
+    def createVideo(title, desc, hyperlink, tags):
 	    video = Video(title, desc, hyperlink, tags)
 	    return video
 
@@ -27,7 +27,7 @@ class Video:
     def getTags(self):
 	    return self._tags
 		
-	#Setters
+    #Setters
     def setTitle(self, value):
 	    self._title = value
 	
@@ -42,7 +42,3 @@ class Video:
 
     def __str__(self):
 	    return "Title: " + self._title + "\nDescription: " + self._desc + "\nHyperlink: " + self._hyperlink + "\nTags: " + self._tags
-
-vid = Video("Banana", "Hello", "Apple", "Tomato")
-print(vid)
-
