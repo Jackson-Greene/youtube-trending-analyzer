@@ -74,3 +74,21 @@ def getTags(video_url):
     
     return tag_list
 ####
+
+
+#gets tags of a video, need to have the video url to access html that has tags in it
+def getTags(video_url):
+    
+    tag_list = []
+    
+    response = requests.get(video_url)
+    soup = BeautifulSoup(response.text, features="lxml")
+    
+    tags_in_html = soup.findAll("meta", property="og:video:tag")
+
+    #goes over every tag and adds them to a list
+    for tag in tags_in_html:
+        tag_list.append(tag.get("content"))
+    
+    return tag_list
+####
